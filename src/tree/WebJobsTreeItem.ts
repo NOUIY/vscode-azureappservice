@@ -17,10 +17,11 @@ export class WebJobsTreeItem extends AzExtParentTreeItem {
     public readonly contextValue: string = WebJobsTreeItem.contextValue;
     public readonly childTypeLabel: string = localize('webJob', 'Web Job');
     public suppressMaskLabel = true;
-    public parent!: SiteTreeItem;
+    public parent: SiteTreeItem;
 
     constructor(parent: SiteTreeItem) {
         super(parent);
+        this.parent = parent;
     }
 
     public get id(): string {
@@ -61,7 +62,7 @@ export class WebJobsNATreeItem extends NotAvailableTreeItem {
         return false;
     }
 
-    // eslint-disable-next-line @typescript-eslint/require-await
+     
     public async loadMoreChildrenImpl(_clearCache: boolean): Promise<AzExtTreeItem[]> {
         return [new GenericTreeItem(this, { label: localize('webJobNA', 'WebJobs are not available for Linux Apps.'), contextValue: 'webJobNA' })];
     }

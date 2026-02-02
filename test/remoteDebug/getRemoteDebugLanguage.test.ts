@@ -3,10 +3,10 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import * as assert from 'assert';
 import { RemoteDebugLanguage } from '@microsoft/vscode-azext-azureappservice';
-import { createTestActionContext } from '@microsoft/vscode-azext-dev';
-import { getRemoteDebugLanguage } from '../../extension.bundle';
+import { createTestActionContext } from '@microsoft/vscode-azext-utils';
+import * as assert from 'assert';
+import { getRemoteDebugLanguage } from '../../src/commands/remoteDebug/getRemoteDebugLanguage';
 import { runWithExtensionSetting } from '../runWithSetting';
 
 suite('getRemoteDebugLanguage', () => {
@@ -69,7 +69,7 @@ suite('getRemoteDebugLanguage', () => {
         // Docker image information should be removed from telemetry
         try {
             getRemoteDebugLanguage({ linuxFxVersion: 'docker|image' }, context);
-        } catch (e) {
+        } catch (_e) {
             // ignore error
         }
         assert.strictEqual(context.telemetry.properties.linuxFxVersion, 'docker');

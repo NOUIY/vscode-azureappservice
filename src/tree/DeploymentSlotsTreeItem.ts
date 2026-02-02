@@ -23,12 +23,13 @@ export class DeploymentSlotsTreeItem extends AzExtParentTreeItem {
     public readonly label: string = label;
     public readonly childTypeLabel: string = 'Deployment Slot';
     public suppressMaskLabel = true;
-    public parent!: SiteTreeItem;
+    public parent: SiteTreeItem;
 
     private _nextLink: string | undefined;
 
     constructor(parent: SiteTreeItem) {
         super(parent);
+        this.parent = parent;
     }
 
     public get iconPath(): TreeItemIconPath {
@@ -128,7 +129,7 @@ export class DeploymentSlotsNATreeItem extends NotAvailableTreeItem {
         return false;
     }
 
-    // eslint-disable-next-line @typescript-eslint/require-await
+     
     public async loadMoreChildrenImpl(_clearCache: boolean): Promise<AzExtTreeItem[]> {
         return [new ScaleUpTreeItem(this, this.scaleUpId)];
     }
